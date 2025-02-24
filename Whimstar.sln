@@ -4,6 +4,8 @@ VisualStudioVersion = 17.13.35617.110
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Whimstar", "Whimstar\Whimstar.csproj", "{FD8AD4CD-554C-4068-AB6C-A8A4D8A27DC1}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CUE4Parse", "CUE4Parse\CUE4Parse\CUE4Parse.csproj", "{709E71E6-6D7B-2E64-5877-172907498BE6}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -14,6 +16,10 @@ Global
 		{FD8AD4CD-554C-4068-AB6C-A8A4D8A27DC1}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{FD8AD4CD-554C-4068-AB6C-A8A4D8A27DC1}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{FD8AD4CD-554C-4068-AB6C-A8A4D8A27DC1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{709E71E6-6D7B-2E64-5877-172907498BE6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{709E71E6-6D7B-2E64-5877-172907498BE6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{709E71E6-6D7B-2E64-5877-172907498BE6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{709E71E6-6D7B-2E64-5877-172907498BE6}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
