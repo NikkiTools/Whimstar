@@ -21,7 +21,7 @@ namespace Whimstar
             public required string InputPath { get; init; } = "";
 
             [CommandOption("-v|--version")]
-            [Description("Version to extract data for. Default the latest available version. 'all' extracts all data")]
+            [Description("Version to extract data for - defaults to the latest available version, specify 'all' to extract data for all versions")]
             public required string? Version { get; init; } = null;
 
             [CommandOption("-o|--output")]
