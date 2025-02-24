@@ -1,0 +1,4 @@
+[submodule "CUE4Parse"]
+	path = CUE4Parse
+	url = https://github.com/LukeFZ/CUE4Parse
+	branch = infinity-nikki-upstream
