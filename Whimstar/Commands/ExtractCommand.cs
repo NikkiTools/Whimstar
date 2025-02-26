@@ -39,10 +39,7 @@ internal class ExtractCommand : AsyncCommand<ExtractCommand.Settings>
             foreach (var version in provider.UniqueVersions)
             {
                 var baseOutput = Path.Join(settings.OutputPath, version.ToString());
-                Directory.CreateDirectory(baseOutput);
-
-                await provider.ProcessArchivesAsync(version, new ConfigsProcessor(baseOutput));
-                await provider.ProcessArchivesAsync(version, new LuaTypesProcessor(baseOutput));
+                await RunProcessors(provider, version, baseOutput);
             }
         }
         else
@@ -52,13 +49,19 @@ internal class ExtractCommand : AsyncCommand<ExtractCommand.Settings>
                 : NikkiVersion.Parse(settings.Version);
 
             var baseOutput = Path.Join(settings.OutputPath, version.ToString());
-            Directory.CreateDirectory(baseOutput);
-
-            await provider.ProcessArchivesAsync(version, new ConfigsProcessor(baseOutput));
-            await provider.ProcessArchivesAsync(version, new LuaTypesProcessor(baseOutput));
+            await RunProcessors(provider, version, baseOutput);
         }
 
         return 0;
+
+        static async Task RunProcessors(NikkiVfsProvider provider, NikkiVersion version, string outputPath)
+        {
+            Directory.CreateDirectory(outputPath);
+
+            await provider.ProcessArchivesAsync(version, new ConfigsProcessor(outputPath));
+            await provider.ProcessArchivesAsync(version, new LuaTypesProcessor(outputPath));
+            await provider.ProcessArchivesAsync(version, new LocresProcessor(outputPath));
+        }
     }
 
     public override ValidationResult Validate(CommandContext context, Settings settings)
