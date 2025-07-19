@@ -19,5 +19,7 @@ public class LocresProcessor(string output) : IArchiveProcessor
     }
 
     private class LocresLanguageProcessor(string output, string languageCode)
-        : BaseFolderProcessor(Path.Join(output, "localization", "Game", languageCode), $"X6Game/Content/Localization/Game/{languageCode}");
+        // all language codes use the same output folder as the files retain their game directory
+        // structure anyways so it makes sense for them to all originate in the same one
+        : BaseFolderProcessor(Path.Join(output, "localization"), $"X6Game/Content/Localization/Game/{languageCode}");
 }
