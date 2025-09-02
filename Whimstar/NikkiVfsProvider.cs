@@ -8,7 +8,7 @@ namespace Whimstar;
 
 public class NikkiVfsProvider() : AbstractVfsFileProvider(Version)
 {
-    private static readonly VersionContainer Version = new(EGame.GAME_InfinityNikki);
+    private static readonly VersionContainer Version = new(EGame.GAME_InfinityNikkiV19);
 
     private readonly Dictionary<NikkiVersion, HashSet<IAesVfsReader>> _packagesByVersion = [];
     private static readonly string[] ArchiveExtensions = [".pak", ".utoc"];
