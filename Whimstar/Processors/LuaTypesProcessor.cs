@@ -7,14 +7,11 @@ namespace Whimstar.Processors;
 // Pre v1.9:
 // public class LuaTypesProcessor(string output) : BaseFolderProcessor(Path.Join(output, "lua"), "X6Game/Content/Script/GenV2");
 
-public class LuaTypesProcessor(string output) : IArchiveProcessor
+public class LuaTypesProcessor(string output, string currentVersionName) : IArchiveProcessor
 {
     public bool Finished => _processor.Finished;
 
     private readonly ScriptProcessor _processor = new(Path.Join(output, "lua"));
-
-    // TODO: This should be configurable
-    private const string CurrentTypesVersion = "1_9";
 
     private static string TranslateLuaPath(string actualPath)
     {
@@ -31,7 +28,7 @@ public class LuaTypesProcessor(string output) : IArchiveProcessor
 
     public async Task Process(IAesVfsReader archive, NikkiVersion version)
     {
-        var hashedPath = TranslateLuaPath($"GenV2/{CurrentTypesVersion}/Cfg/CfgTypes.lua");
+        var hashedPath = TranslateLuaPath($"GenV2/{currentVersionName}/Cfg/CfgTypes.lua");
         if (!archive.Files.ContainsKey(hashedPath))
             return;
 

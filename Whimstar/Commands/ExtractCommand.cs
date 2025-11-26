@@ -22,6 +22,10 @@ internal class ExtractCommand : AsyncCommand<ExtractCommand.Settings>
         [DefaultValue("output")]
         [Description("Path to the output directory")]
         public required string OutputPath { get; init; } = "";
+
+        [CommandOption("-l|--lua-version")]
+        [Description("Version folder name to use for lua extraction - should be in the format <major>_<minor>")]
+        public required string LuaVersion { get; init; } = "2_0";
     }
 
     public override async Task<int> ExecuteAsync(CommandContext context, Settings settings)
@@ -39,7 +43,7 @@ internal class ExtractCommand : AsyncCommand<ExtractCommand.Settings>
             foreach (var version in provider.UniqueVersions)
             {
                 var baseOutput = Path.Join(settings.OutputPath, version.ToString());
-                await RunProcessors(provider, version, baseOutput);
+                await RunProcessors(provider, version, baseOutput, settings.LuaVersion);
             }
         }
         else
@@ -49,17 +53,17 @@ internal class ExtractCommand : AsyncCommand<ExtractCommand.Settings>
                 : NikkiVersion.Parse(settings.Version);
 
             var baseOutput = Path.Join(settings.OutputPath, version.ToString());
-            await RunProcessors(provider, version, baseOutput);
+            await RunProcessors(provider, version, baseOutput, settings.LuaVersion);
         }
 
         return 0;
 
-        static async Task RunProcessors(NikkiVfsProvider provider, NikkiVersion version, string outputPath)
+        static async Task RunProcessors(NikkiVfsProvider provider, NikkiVersion version, string outputPath, string currentVersionName)
         {
             Directory.CreateDirectory(outputPath);
 
             await provider.ProcessArchivesAsync(version, new ConfigsProcessor(outputPath));
-            await provider.ProcessArchivesAsync(version, new LuaTypesProcessor(outputPath));
+            await provider.ProcessArchivesAsync(version, new LuaTypesProcessor(outputPath, currentVersionName));
             await provider.ProcessArchivesAsync(version, new LocresProcessor(outputPath));
         }
     }
