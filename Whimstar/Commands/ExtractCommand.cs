@@ -30,8 +30,13 @@ internal class ExtractCommand : AsyncCommand<ExtractCommand.Settings>
 
     public override async Task<int> ExecuteAsync(CommandContext context, Settings settings)
     {
-        OodleHelper.DownloadOodleDll();
-        OodleHelper.Initialize(OodleHelper.OODLE_DLL_NAME);
+        var oodlePath = Path.Join(AppContext.BaseDirectory, OodleHelper.OODLE_DLL_NAME);
+        if (!Path.Exists(oodlePath))
+        {
+            await OodleHelper.DownloadOodleDllAsync(oodlePath);
+        }
+
+        OodleHelper.Initialize(oodlePath);
 
         var provider = new NikkiVfsProvider();
 
